@@ -1,13 +1,12 @@
 import click
 import torch
-from model import MyAwesomeModel
+from models.model import MyAwesomeModel
 import matplotlib.pyplot as plt
-from numpy import mean
 
-from data import mnist
+from data.dataload import mnist
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-device = torch.device("cuda")
+ID = 0
 
 
 @click.group()
@@ -46,7 +45,7 @@ def train(lr):
             optimizer.step()
             train_loss.append(loss.cpu().detach().numpy())
 
-    torch.save(model, "checkpoint.pth")
+    torch.save(model, f"model/model_{ID}.pth")
     plt.plot(train_loss)
     plt.show()
 
@@ -80,7 +79,7 @@ def evaluate(model_checkpoint):
         test_loss.append(loss.cpu().detach().numpy())
 
     else:
-        accuracy = mean(equals)
+        accuracy = float(torch.mean(torch.Tensor(equals)))
         print(accuracy)
 
 
