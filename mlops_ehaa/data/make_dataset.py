@@ -29,9 +29,7 @@ if __name__ == "__main__":
 
     for i in range(6):
         train = torch.cat((train, torch.load(f"{SOURCE_PATH}/train_images_{i}.pt")))
-        train_labels = torch.cat(
-            (train_labels, torch.load(f"{SOURCE_PATH}/train_target_{i}.pt"))
-        )
+        train_labels = torch.cat((train_labels, torch.load(f"{SOURCE_PATH}/train_target_{i}.pt")))
 
     data = normalize_data(train)
     labels = train_labels.flatten()
