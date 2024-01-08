@@ -4,7 +4,7 @@ import sys
 import pickle
 import numpy as np
 
-from data.dataload import mnist
+from mlops_ehaa.data.dataload import mnist
 
 
 def predict(model: torch.nn.Module, dataloader: DataLoader) -> None:

@@ -24,13 +24,19 @@ class MNISTDataset(Dataset):
         return sample
 
 
-def mnist(data_path: None | list[str, str] = None):
-    batch_size = 8
+def mnist(data_path: None | list[str, str] = None, batch_size: int = 8):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     if not data_path:
-        trainloader = MNISTDataset(data_path="data/processed/corruptmnist/train_set.pth", device=device)
-        testloader = MNISTDataset(data_path="data/processed/corruptmnist/test_set.pth", device=device)
+        trainloader = MNISTDataset(
+            data_path="data/processed/corruptmnist/train_set.pth", device=device
+        )
+        testloader = MNISTDataset(
+            data_path="data/processed/corruptmnist/test_set.pth", device=device
+        )
+    else:
+        trainloader = MNISTDataset(data_path=data_path[0], device=device)
+        testloader = MNISTDataset(data_path=data_path[1], device=device)
 
     trainset = DataLoader(trainloader, batch_size, shuffle=True)
     testset = DataLoader(testloader, batch_size, shuffle=True)
